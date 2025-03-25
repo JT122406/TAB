@@ -1,5 +1,6 @@
 package me.neznamy.tab.platforms.neoforge;
 
+import me.neznamy.tab.platforms.modded.ModdedTabCommand;
 import me.neznamy.tab.shared.TAB;
 import net.neoforged.api.distmarker.Dist;
 import net.neoforged.bus.api.IEventBus;
@@ -14,7 +15,7 @@ public class NeoForgeTAB {
 
 	public NeoForgeTAB() {
 		IEventBus EVENT_BUS = NeoForge.EVENT_BUS;
-		EVENT_BUS.addListener((RegisterCommandsEvent event) -> new NeoForgeTabCommand().onRegisterCommands(event.getDispatcher()));
+		EVENT_BUS.addListener((RegisterCommandsEvent event) -> new ModdedTabCommand().onRegisterCommands(event.getDispatcher()));
 		EVENT_BUS.addListener((ServerStartingEvent event) -> TAB.create(new NeoForgePlatform(event.getServer(), "NeoForge")));
 		EVENT_BUS.addListener((ServerStoppingEvent event) -> TAB.getInstance().unload());
 	}

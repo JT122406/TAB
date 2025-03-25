@@ -1,5 +1,6 @@
 package me.neznamy.tab.platforms.forge;
 
+import me.neznamy.tab.platforms.modded.ModdedTabCommand;
 import me.neznamy.tab.shared.TAB;
 import net.minecraftforge.api.distmarker.Dist;
 import net.minecraftforge.api.distmarker.OnlyIn;
@@ -15,7 +16,7 @@ import net.minecraftforge.fml.javafmlmod.FMLJavaModLoadingContext;
 public class ForgeTAB {
 	public ForgeTAB(final FMLJavaModLoadingContext context) {
 		IEventBus EVENT_BUS = context.getModEventBus();
-		EVENT_BUS.addListener((RegisterCommandsEvent event) -> new ForgeTabCommand().onRegisterCommands(event.getDispatcher()));
+		EVENT_BUS.addListener((RegisterCommandsEvent event) -> new ModdedTabCommand().onRegisterCommands(event.getDispatcher()));
 		EVENT_BUS.addListener((ServerStartingEvent event) -> TAB.create(new ForgePlatform(event.getServer(), "Forge")));
 		EVENT_BUS.addListener((ServerStoppingEvent event) -> TAB.getInstance().unload());
 	}

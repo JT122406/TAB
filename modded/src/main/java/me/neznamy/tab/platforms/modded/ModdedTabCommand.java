@@ -1,4 +1,4 @@
-package me.neznamy.tab.platforms.forge;
+package me.neznamy.tab.platforms.modded;
 
 import com.mojang.brigadier.CommandDispatcher;
 import com.mojang.brigadier.arguments.StringArgumentType;
@@ -7,8 +7,9 @@ import com.mojang.brigadier.suggestion.Suggestions;
 import com.mojang.brigadier.suggestion.SuggestionsBuilder;
 import com.mojang.brigadier.tree.ArgumentCommandNode;
 import com.mojang.brigadier.tree.LiteralCommandNode;
-import me.neznamy.tab.shared.TAB;
 import me.neznamy.chat.component.TabComponent;
+import me.neznamy.tab.shared.TAB;
+import me.neznamy.tab.shared.TabConstants;
 import me.neznamy.tab.shared.platform.TabPlayer;
 import net.minecraft.commands.CommandSourceStack;
 import net.minecraft.commands.Commands;
@@ -18,9 +19,9 @@ import java.util.Arrays;
 import java.util.concurrent.CompletableFuture;
 
 /**
- * Command handler for plugin's command for Fabric.
+ * Command handler for plugin's command for Modded platforms
  */
-public class ForgeTabCommand {
+public class ModdedTabCommand {
 
     /**
      * Handles command register request from server and registers own command.
@@ -57,8 +58,9 @@ public class ForgeTabCommand {
     @SuppressWarnings("SameReturnValue") // Unused by plugin
     private int executeCommand(@NotNull CommandSourceStack source, @NotNull String[] args) {
         if (TAB.getInstance().isPluginDisabled()) {
-            boolean hasReloadPermission = true; //PermissionsAPIHook.hasPermission(source, TabConstants.Permission.COMMAND_RELOAD);
-            boolean hasAdminPermission = true; //PermissionsAPIHook.hasPermission(source, TabConstants.Permission.COMMAND_ALL);
+            ModdedPlatform platform = (ModdedPlatform) TAB.getInstance().getPlatform();
+            boolean hasReloadPermission = platform.getPermissionsHook().hasPermission(source, TabConstants.Permission.COMMAND_RELOAD);
+            boolean hasAdminPermission = platform.getPermissionsHook().hasPermission(source, TabConstants.Permission.COMMAND_ALL);
             for (String message : TAB.getInstance().getDisabledCommand().execute(args, hasReloadPermission, hasAdminPermission)) {
                 source.sendSystemMessage(TabComponent.fromColoredText(message).convert());
             }

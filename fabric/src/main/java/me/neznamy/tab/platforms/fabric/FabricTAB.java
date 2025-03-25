@@ -1,5 +1,6 @@
 package me.neznamy.tab.platforms.fabric;
 
+import me.neznamy.tab.platforms.modded.ModdedTabCommand;
 import me.neznamy.tab.shared.TAB;
 import net.fabricmc.api.DedicatedServerModInitializer;
 import net.fabricmc.fabric.api.command.v2.CommandRegistrationCallback;
@@ -12,7 +13,7 @@ public class FabricTAB implements DedicatedServerModInitializer {
 
     @Override
     public void onInitializeServer() {
-        CommandRegistrationCallback.EVENT.register((dispatcher, commandBuildContext, commandSelection) -> new FabricTabCommand().onRegisterCommands(dispatcher));
+        CommandRegistrationCallback.EVENT.register((dispatcher, commandBuildContext, commandSelection) -> new ModdedTabCommand().onRegisterCommands(dispatcher));
         ServerLifecycleEvents.SERVER_STARTING.register(server -> TAB.create(new FabricPlatform(server, "Fabric")));
         ServerLifecycleEvents.SERVER_STOPPING.register(server -> TAB.getInstance().unload());
     }
