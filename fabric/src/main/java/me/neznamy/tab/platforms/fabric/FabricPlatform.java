@@ -2,8 +2,10 @@ package me.neznamy.tab.platforms.fabric;
 
 import eu.pb4.placeholders.api.PlaceholderContext;
 import eu.pb4.placeholders.api.Placeholders;
+import me.neznamy.tab.platforms.fabric.hook.FabricPermissionsAPIHook;
 import me.neznamy.tab.platforms.fabric.hook.FabricTabExpansion;
 import me.neznamy.tab.platforms.modded.*;
+import me.neznamy.tab.platforms.modded.permissions.PermissionsAPIHook;
 import me.neznamy.tab.shared.TAB;
 import me.neznamy.tab.shared.TabConstants;
 import me.neznamy.tab.shared.features.PerWorldPlayerListConfiguration;
@@ -63,5 +65,12 @@ public record FabricPlatform(MinecraftServer server, String modLoader) implement
     @NotNull
     public File getDataFolder() {
         return FabricLoader.getInstance().getConfigDir().resolve(TabConstants.PLUGIN_ID).toFile();
+    }
+
+    @Override
+    public PermissionsAPIHook getPermissionsHook() {
+        if (FabricLoader.getInstance().isModLoaded("fabric-permissions-api-v0"))
+            return new FabricPermissionsAPIHook();
+        return ModdedPlatform.super.getPermissionsHook();
     }
 }

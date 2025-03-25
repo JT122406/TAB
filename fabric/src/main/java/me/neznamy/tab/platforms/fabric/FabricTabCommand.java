@@ -7,7 +7,7 @@ import com.mojang.brigadier.suggestion.Suggestions;
 import com.mojang.brigadier.suggestion.SuggestionsBuilder;
 import com.mojang.brigadier.tree.ArgumentCommandNode;
 import com.mojang.brigadier.tree.LiteralCommandNode;
-import me.neznamy.tab.platforms.fabric.hook.PermissionsAPIHook;
+import me.neznamy.tab.platforms.modded.ModdedTabPlayer;
 import me.neznamy.tab.shared.TAB;
 import me.neznamy.tab.shared.TabConstants;
 import me.neznamy.chat.component.TabComponent;
@@ -58,9 +58,10 @@ public class FabricTabCommand {
 
     @SuppressWarnings("SameReturnValue") // Unused by plugin
     private int executeCommand(@NotNull CommandSourceStack source, @NotNull String[] args) {
-        if (TAB.getInstance().isPluginDisabled()) {
-            boolean hasReloadPermission = PermissionsAPIHook.hasPermission(source, TabConstants.Permission.COMMAND_RELOAD);
-            boolean hasAdminPermission = PermissionsAPIHook.hasPermission(source, TabConstants.Permission.COMMAND_ALL);
+        if (TAB.getInstance().isPluginDisabled() && source.isPlayer()) {
+            ModdedTabPlayer player = (ModdedTabPlayer) TAB.getInstance().getPlayer(source.getPlayer().getUUID());
+            boolean hasReloadPermission = player.hasPermission(source, TabConstants.Permission.COMMAND_RELOAD);
+            boolean hasAdminPermission = player.hasPermission(source, TabConstants.Permission.COMMAND_ALL);
             for (String message : TAB.getInstance().getDisabledCommand().execute(args, hasReloadPermission, hasAdminPermission)) {
                 source.sendSystemMessage(TabComponent.fromColoredText(message).convert());
             }

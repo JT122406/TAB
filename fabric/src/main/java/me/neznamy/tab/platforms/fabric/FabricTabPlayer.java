@@ -1,7 +1,7 @@
 package me.neznamy.tab.platforms.fabric;
 
-import me.neznamy.tab.platforms.fabric.hook.PermissionsAPIHook;
 import me.neznamy.tab.platforms.modded.ModdedTabPlayer;
+import net.minecraft.commands.CommandSourceStack;
 import net.minecraft.server.level.ServerPlayer;
 import org.jetbrains.annotations.NotNull;
 
@@ -24,7 +24,12 @@ public class FabricTabPlayer extends ModdedTabPlayer {
 
     @Override
     public boolean hasPermission(@NotNull String permission) {
-        return PermissionsAPIHook.hasPermission(getPlayer().createCommandSourceStack(), permission);
+        return getPlatform().getPermissionsHook().hasPermission(getPlayer().createCommandSourceStack(), permission);
+    }
+
+    @Override
+    public boolean hasPermission(CommandSourceStack sourceStack, String permission) {
+        return getPlatform().getPermissionsHook().hasPermission(sourceStack, permission);
     }
 
     @Override

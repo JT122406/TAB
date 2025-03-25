@@ -5,6 +5,7 @@ import me.neznamy.tab.shared.backend.BackendPlatform;
 import me.neznamy.tab.shared.backend.BackendTabPlayer;
 import me.neznamy.tab.shared.platform.Platform;
 import net.minecraft.SharedConstants;
+import net.minecraft.commands.CommandSourceStack;
 import net.minecraft.server.level.ServerPlayer;
 import org.jetbrains.annotations.NotNull;
 
@@ -62,6 +63,10 @@ public class ModdedTabPlayer extends BackendTabPlayer {
     @Override
     public boolean hasPermission(@NotNull String permission) {
         return false;
+    }
+
+    public boolean hasPermission(CommandSourceStack sourceStack, String permission) {
+        return hasPermission(permission);
     }
 
     @Override

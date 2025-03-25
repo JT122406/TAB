@@ -5,6 +5,7 @@ import me.neznamy.chat.component.KeybindComponent;
 import me.neznamy.chat.component.TabComponent;
 import me.neznamy.chat.component.TextComponent;
 import me.neznamy.chat.component.TranslatableComponent;
+import me.neznamy.tab.platforms.modded.permissions.PermissionsAPIHook;
 import me.neznamy.tab.shared.TAB;
 import me.neznamy.tab.shared.backend.BackendPlatform;
 import me.neznamy.tab.shared.features.injection.PipelineInjector;
@@ -13,6 +14,7 @@ import me.neznamy.tab.shared.platform.Scoreboard;
 import me.neznamy.tab.shared.platform.TabList;
 import me.neznamy.tab.shared.platform.TabPlayer;
 import net.minecraft.SharedConstants;
+import net.minecraft.commands.CommandSourceStack;
 import net.minecraft.network.chat.Component;
 import net.minecraft.network.chat.MutableComponent;
 import net.minecraft.network.chat.Style;
@@ -142,4 +144,13 @@ public interface ModdedPlatform extends BackendPlatform {
 
     @Override
     default void startMetrics() {}
+
+    default PermissionsAPIHook getPermissionsHook() {
+        return new PermissionsAPIHook() {
+            @Override
+            public boolean hasPermission(@NotNull CommandSourceStack sourceStack, @NotNull String permission) {
+                return PermissionsAPIHook.super.hasPermission(sourceStack, permission);
+            }
+        };
+    }
 }
