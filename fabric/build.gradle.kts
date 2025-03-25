@@ -9,12 +9,17 @@ repositories {
     maven("https://repo.viaversion.com/")
     maven("https://oss.sonatype.org/content/repositories/snapshots")
     maven("https://maven.nucleoid.xyz/")
+    maven("https://maven.parchmentmc.org")
 }
 
+@Suppress("UnstableApiUsage")
 dependencies {
-    api(projects.shared)
     minecraft("com.mojang:minecraft:1.21.5-rc2")
-    mappings(loom.officialMojangMappings())
+    mappings(loom.layered{
+        officialMojangMappings()
+        parchment("org.parchmentmc.data:parchment-1.21.4:2025.03.23@zip")
+    })
+    api(projects.shared)
     modImplementation("me.lucko:fabric-permissions-api:0.2-SNAPSHOT")
     modImplementation("eu.pb4:placeholder-api:2.5.0+1.21.2")
     modImplementation("net.fabricmc:fabric-loader:0.15.10")
