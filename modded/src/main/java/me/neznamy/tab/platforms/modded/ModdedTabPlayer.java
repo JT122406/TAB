@@ -62,15 +62,15 @@ public class ModdedTabPlayer extends BackendTabPlayer {
 
     @Override
     public boolean hasPermission(@NotNull String permission) {
-        return false;
+        return getPlatform().getPermissionsHook().hasPermission(getPlayer().createCommandSourceStack(), permission);
     }
 
     public boolean hasPermission(CommandSourceStack sourceStack, String permission) {
-        return hasPermission(permission);
+        return getPlatform().getPermissionsHook().hasPermission(sourceStack, permission);
     }
 
     @Override
-    public Platform getPlatform() {
+    public ModdedPlatform getPlatform() {
         return null;
     }
 

@@ -1,7 +1,6 @@
 package me.neznamy.tab.platforms.forge;
 
 import me.neznamy.tab.platforms.modded.ModdedTabPlayer;
-import net.minecraft.commands.CommandSourceStack;
 import net.minecraft.server.level.ServerPlayer;
 import org.jetbrains.annotations.NotNull;
 
@@ -20,16 +19,6 @@ public class ForgeTabPlayer extends ModdedTabPlayer {
      */
     public ForgeTabPlayer(@NotNull ForgePlatform platform, @NotNull ServerPlayer player) {
         super(platform, player);
-    }
-
-    @Override
-    public boolean hasPermission(@NotNull String permission) {
-        return getPlatform().getPermissionsHook().hasPermission(getPlayer().createCommandSourceStack(), permission);
-    }
-
-    @Override
-    public boolean hasPermission(CommandSourceStack sourceStack, String permission) {
-        return getPlatform().getPermissionsHook().hasPermission(sourceStack, permission);
     }
 
     @Override
