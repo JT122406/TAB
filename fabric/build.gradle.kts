@@ -24,6 +24,8 @@ configurations {
     }
 }
 
+loom.accessWidenerPath.set(project(":modded").file("src/main/resources/tab.accesswidener"))
+
 repositories {
     // Gradle doesn't support combining settings and project repositories, so we have to re-declare all the settings repos we need
     maven("https://jitpack.io") // YamlAssist
@@ -53,8 +55,6 @@ dependencies {
     modImplementation(fabricApi.module("fabric-entity-events-v1", version))
     modImplementation(fabricApi.module("fabric-command-api-v2", version))
 }
-
-loom.accessWidenerPath.set(project(":modded").file("src/main/resources/tab.accesswidener"))
 
 tasks {
     compileJava {

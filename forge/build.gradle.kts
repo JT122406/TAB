@@ -24,6 +24,8 @@ configurations {
     }
 }
 
+loom.accessWidenerPath.set(project(":modded").file("src/main/resources/tab.accesswidener"))
+
 repositories {
     // Gradle doesn't support combining settings and project repositories, so we have to re-declare all the settings repos we need
     maven("https://jitpack.io") // YamlAssist
@@ -48,8 +50,6 @@ dependencies {
     "common"(project(":modded", "namedElements")) { isTransitive = false }
     "shadowBundle"(project(":modded", "transformProductionForge"))
 }
-
-loom.forge.accessTransformer(file("src/main/resources/META-INF/accesstransformer.cfg"))
 
 tasks {
     compileJava {

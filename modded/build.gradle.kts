@@ -8,6 +8,8 @@ architectury {
     platformSetupLoomIde()
 }
 
+loom.accessWidenerPath.set(file("src/main/resources/tab.accesswidener"))
+
 repositories {
     // Gradle doesn't support combining settings and project repositories, so we have to re-declare all the settings repos we need
     maven("https://jitpack.io") // YamlAssist
@@ -18,8 +20,6 @@ repositories {
     maven("https://maven.neoforged.net/releases")
     maven("https://maven.parchmentmc.org")
 }
-
-loom.accessWidenerPath.set(file("src/main/resources/tab.accesswidener"))
 
 @Suppress("UnstableApiUsage")
 dependencies {

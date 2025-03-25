@@ -24,6 +24,8 @@ configurations {
     }
 }
 
+loom.accessWidenerPath.set(project(":modded").file("src/main/resources/tab.accesswidener"))
+
 repositories {
     // Gradle doesn't support combining settings and project repositories, so we have to re-declare all the settings repos we need
     maven("https://jitpack.io") // YamlAssist
@@ -48,10 +50,18 @@ dependencies {
     "shadowBundle"(project(":modded", "transformProductionNeoForge"))
 }
 
-loom.neoForge.accessTransformer(file("src/main/resources/META-INF/accesstransformer.cfg"))
-
 tasks {
     compileJava {
         options.release.set(21)
+    }
+    shadowJar {
+        configurations = listOf(project.configurations.getByName("shadowBundle"))
+        archiveClassifier.set("dev-shadow")
+    }
+
+    remapJar {
+        inputFile.set(shadowJar.get().archiveFile)
+        dependsOn(shadowJar)
+        atAccessWideners.add("tab.accesswidener")
     }
 }
