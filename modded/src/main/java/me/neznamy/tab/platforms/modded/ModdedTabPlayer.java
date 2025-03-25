@@ -3,13 +3,12 @@ package me.neznamy.tab.platforms.modded;
 import me.neznamy.chat.component.TabComponent;
 import me.neznamy.tab.shared.backend.BackendPlatform;
 import me.neznamy.tab.shared.backend.BackendTabPlayer;
-import me.neznamy.tab.shared.platform.Platform;
 import net.minecraft.SharedConstants;
 import net.minecraft.commands.CommandSourceStack;
 import net.minecraft.server.level.ServerPlayer;
 import org.jetbrains.annotations.NotNull;
 
-public class ModdedTabPlayer extends BackendTabPlayer {
+public abstract class ModdedTabPlayer extends BackendTabPlayer {
     /**
      * Constructs new instance with given parameters
      *
@@ -70,9 +69,7 @@ public class ModdedTabPlayer extends BackendTabPlayer {
     }
 
     @Override
-    public ModdedPlatform getPlatform() {
-        return null;
-    }
+    public abstract ModdedPlatform getPlatform();
 
     @Override
     public @NotNull ServerPlayer getPlayer() {

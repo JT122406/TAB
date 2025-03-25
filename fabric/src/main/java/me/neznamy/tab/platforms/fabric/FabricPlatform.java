@@ -68,6 +68,11 @@ public record FabricPlatform(MinecraftServer server, String modLoader) implement
     }
 
     @Override
+    public ModdedTabPlayer getPlayer(ModdedPlatform platform, ServerPlayer player) {
+        return new FabricTabPlayer(this, player);
+    }
+
+    @Override
     public PermissionsAPIHook getPermissionsHook() {
         if (FabricLoader.getInstance().isModLoaded("fabric-permissions-api-v0"))
             return new FabricPermissionsAPIHook();

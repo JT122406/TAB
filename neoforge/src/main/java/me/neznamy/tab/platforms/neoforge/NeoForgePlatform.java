@@ -7,6 +7,7 @@ import me.neznamy.tab.shared.features.types.TabFeature;
 import me.neznamy.tab.shared.placeholders.expansion.EmptyTabExpansion;
 import me.neznamy.tab.shared.placeholders.expansion.TabExpansion;
 import net.minecraft.server.MinecraftServer;
+import net.minecraft.server.level.ServerPlayer;
 import net.neoforged.fml.loading.FMLPaths;
 import org.jetbrains.annotations.NotNull;
 import org.jetbrains.annotations.Nullable;
@@ -46,5 +47,10 @@ public record NeoForgePlatform(MinecraftServer server, String modLoader) impleme
     @NotNull
     public File getDataFolder() {
         return FMLPaths.CONFIGDIR.get().resolve(TabConstants.PLUGIN_ID).toFile();
+    }
+
+    @Override
+    public ModdedTabPlayer getPlayer(ModdedPlatform platform, ServerPlayer player) {
+        return new NeoForgeTabPlayer(this, player);
     }
 }

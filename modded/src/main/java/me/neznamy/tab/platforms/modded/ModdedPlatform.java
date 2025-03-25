@@ -40,9 +40,11 @@ public interface ModdedPlatform extends BackendPlatform {
     @Override
     default void loadPlayers() {
         for (ServerPlayer player : getOnlinePlayers()) {
-            TAB.getInstance().addPlayer(new ModdedTabPlayer(this, player));
+            TAB.getInstance().addPlayer(getPlayer(this, player));
         }
     }
+
+    ModdedTabPlayer getPlayer(ModdedPlatform platform, ServerPlayer player);
 
     private Collection<ServerPlayer> getOnlinePlayers() {
         // It's nullable on startup
