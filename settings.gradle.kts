@@ -29,6 +29,7 @@ rootProject.name = "TAB"
 
 include(":api")
 include(":shared")
+include(":modded")
 include(":velocity")
 include(":bukkit")
 include(":bukkit:paper")
@@ -38,4 +39,5 @@ include(":sponge7")
 include(":sponge8")
 include(":fabric")
 include(":neoforge")
+//include(":forge")
 include(":jar")

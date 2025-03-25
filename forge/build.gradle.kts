@@ -1,27 +1,5 @@
 plugins {
     id("dev.architectury.loom")
-    id("architectury-plugin") version "3.4-SNAPSHOT"
-}
-
-architectury {
-    platformSetupLoomIde()
-    neoForge()
-}
-
-configurations {
-    create("common")
-    "common" {
-        isCanBeResolved = true
-        isCanBeConsumed = false
-    }
-    create("shadowBundle")
-    compileClasspath.get().extendsFrom(configurations["common"])
-    runtimeClasspath.get().extendsFrom(configurations["common"])
-    getByName("developmentNeoForge").extendsFrom(configurations["common"])
-    "shadowBundle" {
-        isCanBeResolved = true
-        isCanBeConsumed = false
-    }
 }
 
 repositories {
@@ -32,6 +10,7 @@ repositories {
     maven("https://oss.sonatype.org/content/repositories/snapshots")
     maven("https://maven.nucleoid.xyz/")
     maven("https://maven.neoforged.net/releases")
+    maven("https://maven.minecraftforge.net/")
     maven("https://maven.parchmentmc.org")
 }
 
@@ -42,13 +21,11 @@ dependencies {
         officialMojangMappings()
         parchment("org.parchmentmc.data:parchment-1.21.4:2025.03.23@zip")
     })
-    neoForge("net.neoforged:neoforge:21.4.123")
+    forge("net.minecraftforge:forge:1.21.4-54.1.3")
     api(projects.shared)
-    "common"(project(":modded", "namedElements")) { isTransitive = false }
-    "shadowBundle"(project(":modded", "transformProductionNeoForge"))
 }
 
-loom.neoForge.accessTransformer(file("src/main/resources/META-INF/accesstransformer.cfg"))
+loom.forge.accessTransformer(file("src/main/resources/META-INF/accesstransformer.cfg"))
 
 tasks {
     compileJava {

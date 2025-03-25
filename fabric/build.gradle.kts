@@ -1,5 +1,27 @@
 plugins {
     id("dev.architectury.loom")
+    id("architectury-plugin") version "3.4-SNAPSHOT"
+}
+
+architectury {
+    platformSetupLoomIde()
+    fabric()
+}
+
+configurations {
+    create("common")
+    "common" {
+        isCanBeResolved = true
+        isCanBeConsumed = false
+    }
+    create("shadowBundle")
+    compileClasspath.get().extendsFrom(configurations["common"])
+    runtimeClasspath.get().extendsFrom(configurations["common"])
+    getByName("developmentFabric").extendsFrom(configurations["common"])
+    "shadowBundle" {
+        isCanBeResolved = true
+        isCanBeConsumed = false
+    }
 }
 
 repositories {
@@ -20,6 +42,8 @@ dependencies {
         parchment("org.parchmentmc.data:parchment-1.21.4:2025.03.23@zip")
     })
     api(projects.shared)
+    "common"(project(":modded", "namedElements")) { isTransitive = false }
+    "shadowBundle"(project(":modded", "transformProductionFabric"))
     modImplementation("me.lucko:fabric-permissions-api:0.2-SNAPSHOT")
     modImplementation("eu.pb4:placeholder-api:2.5.0+1.21.2")
     modImplementation("net.fabricmc:fabric-loader:0.15.10")

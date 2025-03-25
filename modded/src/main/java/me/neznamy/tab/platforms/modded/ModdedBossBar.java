@@ -1,9 +1,9 @@
-package me.neznamy.tab.platforms.fabric;
+package me.neznamy.tab.platforms.modded;
 
 import lombok.RequiredArgsConstructor;
+import me.neznamy.chat.component.TabComponent;
 import me.neznamy.tab.api.bossbar.BarColor;
 import me.neznamy.tab.api.bossbar.BarStyle;
-import me.neznamy.chat.component.TabComponent;
 import me.neznamy.tab.shared.platform.decorators.SafeBossBar;
 import net.minecraft.server.level.ServerBossEvent;
 import net.minecraft.world.BossEvent.BossBarColor;
@@ -14,11 +14,11 @@ import org.jetbrains.annotations.NotNull;
  * BossBar implementation for Fabric using packets.
  */
 @RequiredArgsConstructor
-public class FabricBossBar extends SafeBossBar<ServerBossEvent> {
+public class ModdedBossBar extends SafeBossBar<ServerBossEvent> {
 
     /** Player this BossBar belongs to */
     @NotNull
-    private final FabricTabPlayer player;
+    private final ModdedTabPlayer player;
 
     @Override
     @NotNull

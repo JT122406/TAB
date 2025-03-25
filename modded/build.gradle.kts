@@ -4,24 +4,8 @@ plugins {
 }
 
 architectury {
+    common("fabric", "neoforge")
     platformSetupLoomIde()
-    neoForge()
-}
-
-configurations {
-    create("common")
-    "common" {
-        isCanBeResolved = true
-        isCanBeConsumed = false
-    }
-    create("shadowBundle")
-    compileClasspath.get().extendsFrom(configurations["common"])
-    runtimeClasspath.get().extendsFrom(configurations["common"])
-    getByName("developmentNeoForge").extendsFrom(configurations["common"])
-    "shadowBundle" {
-        isCanBeResolved = true
-        isCanBeConsumed = false
-    }
 }
 
 repositories {
@@ -35,6 +19,8 @@ repositories {
     maven("https://maven.parchmentmc.org")
 }
 
+loom.accessWidenerPath.set(file("src/main/resources/tab.accesswidener"))
+
 @Suppress("UnstableApiUsage")
 dependencies {
     minecraft("com.mojang:minecraft:1.21.4")
@@ -42,13 +28,9 @@ dependencies {
         officialMojangMappings()
         parchment("org.parchmentmc.data:parchment-1.21.4:2025.03.23@zip")
     })
-    neoForge("net.neoforged:neoforge:21.4.123")
+    compileOnly("org.jetbrains:annotations:26.0.2")
     api(projects.shared)
-    "common"(project(":modded", "namedElements")) { isTransitive = false }
-    "shadowBundle"(project(":modded", "transformProductionNeoForge"))
 }
-
-loom.neoForge.accessTransformer(file("src/main/resources/META-INF/accesstransformer.cfg"))
 
 tasks {
     compileJava {

@@ -1,4 +1,4 @@
-package me.neznamy.tab.platforms.fabric;
+package me.neznamy.tab.platforms.modded;
 
 import lombok.NonNull;
 import me.neznamy.tab.shared.TAB;
@@ -16,9 +16,9 @@ import org.jetbrains.annotations.NotNull;
 import java.util.Optional;
 
 /**
- * Scoreboard implementation for Fabric using packets.
+ * Scoreboard implementation for Modded Platforms using packets.
  */
-public class FabricScoreboard extends SafeScoreboard<FabricTabPlayer> {
+public class ModdedScoreboard extends SafeScoreboard<ModdedTabPlayer> {
 
     private static final ChatFormatting[] formats = ChatFormatting.values();
     private static final net.minecraft.world.scores.Team.CollisionRule[] collisions = net.minecraft.world.scores.Team.CollisionRule.values();
@@ -31,7 +31,7 @@ public class FabricScoreboard extends SafeScoreboard<FabricTabPlayer> {
      * @param   player
      *          Player this scoreboard will belong to
      */
-    public FabricScoreboard(FabricTabPlayer player) {
+    public ModdedScoreboard(ModdedTabPlayer player) {
         super(player);
     }
 

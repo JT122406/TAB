@@ -1,24 +1,16 @@
-package me.neznamy.tab.platforms.fabric;
+package me.neznamy.tab.platforms.neoforge;
 
 import com.mojang.logging.LogUtils;
-import eu.pb4.placeholders.api.PlaceholderContext;
-import eu.pb4.placeholders.api.Placeholders;
 import lombok.Getter;
 import lombok.RequiredArgsConstructor;
 import me.neznamy.chat.component.KeybindComponent;
 import me.neznamy.chat.component.TabComponent;
 import me.neznamy.chat.component.TextComponent;
 import me.neznamy.chat.component.TranslatableComponent;
-import me.neznamy.tab.platforms.fabric.hook.FabricTabExpansion;
-import me.neznamy.tab.platforms.modded.ModdedBossBar;
-import me.neznamy.tab.platforms.modded.ModdedPipelineInjector;
-import me.neznamy.tab.platforms.modded.ModdedScoreboard;
-import me.neznamy.tab.platforms.modded.ModdedTabList;
 import me.neznamy.tab.shared.TAB;
 import me.neznamy.tab.shared.TabConstants;
 import me.neznamy.tab.shared.backend.BackendPlatform;
 import me.neznamy.tab.shared.features.PerWorldPlayerListConfiguration;
-import me.neznamy.tab.shared.features.PlaceholderManagerImpl;
 import me.neznamy.tab.shared.features.injection.PipelineInjector;
 import me.neznamy.tab.shared.features.types.TabFeature;
 import me.neznamy.tab.shared.placeholders.expansion.EmptyTabExpansion;
@@ -27,7 +19,6 @@ import me.neznamy.tab.shared.platform.BossBar;
 import me.neznamy.tab.shared.platform.Scoreboard;
 import me.neznamy.tab.shared.platform.TabList;
 import me.neznamy.tab.shared.platform.TabPlayer;
-import net.fabricmc.loader.api.FabricLoader;
 import net.minecraft.SharedConstants;
 import net.minecraft.network.chat.Component;
 import net.minecraft.network.chat.MutableComponent;
@@ -36,6 +27,8 @@ import net.minecraft.network.chat.TextColor;
 import net.minecraft.resources.ResourceLocation;
 import net.minecraft.server.MinecraftServer;
 import net.minecraft.server.level.ServerPlayer;
+import net.neoforged.bus.api.IEventBus;
+import net.neoforged.fml.loading.FMLPaths;
 import org.jetbrains.annotations.NotNull;
 import org.jetbrains.annotations.Nullable;
 
@@ -44,35 +37,24 @@ import java.util.Collection;
 import java.util.Collections;
 
 /**
- * Platform implementation for Fabric
+ * Platform implementation for NeoForge
  */
 @RequiredArgsConstructor
 @Getter
-public class FabricPlatform implements BackendPlatform {
+public class NeoForgePlatform implements BackendPlatform {
 
     /** Minecraft server reference */
     private final MinecraftServer server;
 
     @Override
     public void registerUnknownPlaceholder(@NotNull String identifier) {
-        if (!FabricLoader.getInstance().isModLoaded("placeholder-api")) {
-            registerDummyPlaceholder(identifier);
-            return;
-        }
-
-        PlaceholderManagerImpl manager = TAB.getInstance().getPlaceholderManager();
-        manager.registerPlayerPlaceholder(identifier,
-                p -> Placeholders.parseText(
-                        Component.literal(identifier),
-                        PlaceholderContext.of((ServerPlayer) p.getPlayer())
-                ).getString()
-        );
+        registerDummyPlaceholder(identifier);
     }
 
     @Override
     public void loadPlayers() {
         for (ServerPlayer player : getOnlinePlayers()) {
-            TAB.getInstance().addPlayer(new FabricTabPlayer(this, player));
+            TAB.getInstance().addPlayer(new NeoForgeTabPlayer(this, player));
         }
     }
 
@@ -84,14 +66,12 @@ public class FabricPlatform implements BackendPlatform {
     @Override
     @NotNull
     public PipelineInjector createPipelineInjector() {
-        return new ModdedPipelineInjector();
+        return new NeoForgePipelineInjector();
     }
 
     @Override
     @NotNull
     public TabExpansion createTabExpansion() {
-        if (FabricLoader.getInstance().isModLoaded("placeholder-api"))
-            return new FabricTabExpansion();
         return new EmptyTabExpansion();
     }
 
@@ -119,7 +99,7 @@ public class FabricPlatform implements BackendPlatform {
 
     @Override
     public void registerListener() {
-        new FabricEventListener().register();
+        new NeoForgeEventListener().register();
     }
 
     @Override
@@ -135,7 +115,7 @@ public class FabricPlatform implements BackendPlatform {
     @Override
     @NotNull
     public File getDataFolder() {
-        return FabricLoader.getInstance().getConfigDir().resolve(TabConstants.PLUGIN_ID).toFile();
+        return FMLPaths.CONFIGDIR.get().resolve(TabConstants.PLUGIN_ID).toFile();
     }
 
     @Override
@@ -179,19 +159,19 @@ public class FabricPlatform implements BackendPlatform {
     @Override
     @NotNull
     public Scoreboard createScoreboard(@NotNull TabPlayer player) {
-        return new ModdedScoreboard((FabricTabPlayer) player);
+        return new NeoForgeScoreboard((NeoForgeTabPlayer) player);
     }
 
     @Override
     @NotNull
     public BossBar createBossBar(@NotNull TabPlayer player) {
-        return new ModdedBossBar((FabricTabPlayer) player);
+        return new NeoForgeBossBar((NeoForgeTabPlayer) player);
     }
 
     @Override
     @NotNull
     public TabList createTabList(@NotNull TabPlayer player) {
-        return new ModdedTabList((FabricTabPlayer) player);
+        return new NeoForgeTabList((NeoForgeTabPlayer) player);
     }
 
     @Override

@@ -1,5 +1,6 @@
 package me.neznamy.tab.platforms.fabric;
 
+import me.neznamy.tab.platforms.modded.LevelNameGetter;
 import me.neznamy.tab.shared.TAB;
 import me.neznamy.tab.shared.platform.EventListener;
 import me.neznamy.tab.shared.platform.TabPlayer;
@@ -25,10 +26,10 @@ public class FabricEventListener implements EventListener<ServerPlayer> {
                 (oldPlayer, newPlayer, alive) -> {
                     replacePlayer(newPlayer.getUUID(), newPlayer);
                     // respawning from death & taking end portal in the end does not call world change event
-                    worldChange(newPlayer.getUUID(), FabricTAB.getLevelName(newPlayer.level()));
+                    worldChange(newPlayer.getUUID(), LevelNameGetter.getLevelName(newPlayer.level()));
                 });
         ServerEntityWorldChangeEvents.AFTER_PLAYER_CHANGE_WORLD.register(
-                (player, origin, destination) -> worldChange(player.getUUID(), FabricTAB.getLevelName(destination)));
+                (player, origin, destination) -> worldChange(player.getUUID(), LevelNameGetter.getLevelName(destination)));
     }
 
     @Override

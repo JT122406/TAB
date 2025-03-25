@@ -1,4 +1,4 @@
-package me.neznamy.tab.platforms.fabric;
+package me.neznamy.tab.platforms.modded;
 
 import com.mojang.authlib.GameProfile;
 import com.mojang.authlib.properties.Property;
@@ -21,7 +21,7 @@ import java.util.*;
 /**
  * TabList implementation for Fabric using packets.
  */
-public class FabricTabList extends TrackedTabList<FabricTabPlayer> {
+public class ModdedTabList extends TrackedTabList<ModdedTabPlayer> {
 
     private static final EnumSet<ClientboundPlayerInfoUpdatePacket.Action> addPlayer = EnumSet.allOf(ClientboundPlayerInfoUpdatePacket.Action.class);
     private static final EnumSet<ClientboundPlayerInfoUpdatePacket.Action> updateDisplayName = EnumSet.of(ClientboundPlayerInfoUpdatePacket.Action.UPDATE_DISPLAY_NAME);
@@ -30,14 +30,14 @@ public class FabricTabList extends TrackedTabList<FabricTabPlayer> {
     private static final EnumSet<ClientboundPlayerInfoUpdatePacket.Action> updateListed = EnumSet.of(ClientboundPlayerInfoUpdatePacket.Action.UPDATE_LISTED);
     private static final EnumSet<ClientboundPlayerInfoUpdatePacket.Action> updateListOrder = EnumSet.of(ClientboundPlayerInfoUpdatePacket.Action.UPDATE_LIST_ORDER);
     private static final EnumSet<ClientboundPlayerInfoUpdatePacket.Action> updateHat = EnumSet.of(ClientboundPlayerInfoUpdatePacket.Action.UPDATE_HAT);
-    
+
     /**
      * Constructs new instance.
      *
      * @param   player
      *          Player this tablist will belong to
      */
-    public FabricTabList(@NotNull FabricTabPlayer player) {
+    public ModdedTabList(@NotNull ModdedTabPlayer player) {
         super(player);
     }
 

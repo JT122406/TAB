@@ -1,6 +1,5 @@
 package me.neznamy.tab.platforms.neoforge;
 
-import me.neznamy.tab.platforms.modded.LevelNameGetter;
 import me.neznamy.tab.shared.TAB;
 import me.neznamy.tab.shared.platform.EventListener;
 import me.neznamy.tab.shared.platform.TabPlayer;
@@ -25,9 +24,9 @@ public class NeoForgeEventListener implements EventListener<ServerPlayer> {
         eventBus.addListener((PlayerEvent.PlayerRespawnEvent event) -> {
             ServerPlayer player = (ServerPlayer) event.getEntity();
           replacePlayer(player.getUUID(), player);
-          worldChange(player.getUUID(), LevelNameGetter.getLevelName(player.level()));
+          worldChange(player.getUUID(), NeoForgeTAB.getLevelName(player.level()));
         });
-        eventBus.addListener((PlayerEvent.PlayerChangedDimensionEvent event) -> worldChange(event.getEntity().getUUID(), LevelNameGetter.getLevelName(event.getEntity().level())));
+        eventBus.addListener((PlayerEvent.PlayerChangedDimensionEvent event) -> worldChange(event.getEntity().getUUID(), NeoForgeTAB.getLevelName(event.getEntity().level())));
     }
 
     @Override

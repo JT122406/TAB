@@ -7,6 +7,10 @@ import me.neznamy.chat.component.KeybindComponent;
 import me.neznamy.chat.component.TabComponent;
 import me.neznamy.chat.component.TextComponent;
 import me.neznamy.chat.component.TranslatableComponent;
+import me.neznamy.tab.platforms.modded.ModdedBossBar;
+import me.neznamy.tab.platforms.modded.ModdedPipelineInjector;
+import me.neznamy.tab.platforms.modded.ModdedScoreboard;
+import me.neznamy.tab.platforms.modded.ModdedTabList;
 import me.neznamy.tab.shared.TAB;
 import me.neznamy.tab.shared.TabConstants;
 import me.neznamy.tab.shared.backend.BackendPlatform;
@@ -27,7 +31,6 @@ import net.minecraft.network.chat.TextColor;
 import net.minecraft.resources.ResourceLocation;
 import net.minecraft.server.MinecraftServer;
 import net.minecraft.server.level.ServerPlayer;
-import net.neoforged.bus.api.IEventBus;
 import net.neoforged.fml.loading.FMLPaths;
 import org.jetbrains.annotations.NotNull;
 import org.jetbrains.annotations.Nullable;
@@ -66,7 +69,7 @@ public class NeoForgePlatform implements BackendPlatform {
     @Override
     @NotNull
     public PipelineInjector createPipelineInjector() {
-        return new NeoForgePipelineInjector();
+        return new ModdedPipelineInjector();
     }
 
     @Override
@@ -159,19 +162,19 @@ public class NeoForgePlatform implements BackendPlatform {
     @Override
     @NotNull
     public Scoreboard createScoreboard(@NotNull TabPlayer player) {
-        return new NeoForgeScoreboard((NeoForgeTabPlayer) player);
+        return new ModdedScoreboard((NeoForgeTabPlayer) player);
     }
 
     @Override
     @NotNull
     public BossBar createBossBar(@NotNull TabPlayer player) {
-        return new NeoForgeBossBar((NeoForgeTabPlayer) player);
+        return new ModdedBossBar((NeoForgeTabPlayer) player);
     }
 
     @Override
     @NotNull
     public TabList createTabList(@NotNull TabPlayer player) {
-        return new NeoForgeTabList((NeoForgeTabPlayer) player);
+        return new ModdedTabList((NeoForgeTabPlayer) player);
     }
 
     @Override

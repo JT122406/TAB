@@ -27,7 +27,8 @@ val platforms = setOf(
 
 val special = setOf(
     projects.api,
-    projects.shared
+    projects.shared,
+    projects.modded
 ).map { it.dependencyProject }
 
 subprojects {

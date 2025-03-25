@@ -1,4 +1,4 @@
-package me.neznamy.tab.platforms.neoforge;
+package me.neznamy.tab.platforms.forge;
 
 import lombok.RequiredArgsConstructor;
 import me.neznamy.tab.api.bossbar.BarColor;
