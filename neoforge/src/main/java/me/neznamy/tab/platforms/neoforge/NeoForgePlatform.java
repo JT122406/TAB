@@ -4,8 +4,6 @@ import me.neznamy.tab.platforms.modded.*;
 import me.neznamy.tab.shared.TabConstants;
 import me.neznamy.tab.shared.features.PerWorldPlayerListConfiguration;
 import me.neznamy.tab.shared.features.types.TabFeature;
-import me.neznamy.tab.shared.placeholders.expansion.EmptyTabExpansion;
-import me.neznamy.tab.shared.placeholders.expansion.TabExpansion;
 import net.minecraft.server.MinecraftServer;
 import net.minecraft.server.level.ServerPlayer;
 import net.neoforged.fml.loading.FMLPaths;
@@ -24,12 +22,6 @@ public record NeoForgePlatform(MinecraftServer server, String modLoader) impleme
     @Override
     public void registerUnknownPlaceholder(@NotNull String identifier) {
         registerDummyPlaceholder(identifier);
-    }
-
-    @Override
-    @NotNull
-    public TabExpansion createTabExpansion() {
-        return new EmptyTabExpansion();
     }
 
     @Override
