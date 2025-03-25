@@ -1,6 +1,5 @@
 package me.neznamy.tab.platforms.neoforge;
 
-import me.neznamy.chat.component.TabComponent;
 import me.neznamy.tab.platforms.modded.ModdedTabPlayer;
 import net.minecraft.server.level.ServerPlayer;
 import org.jetbrains.annotations.NotNull;
@@ -25,11 +24,6 @@ public class NeoForgeTabPlayer extends ModdedTabPlayer {
     @Override
     public boolean hasPermission(@NotNull String permission) {
         return true; // PermissionsAPIHook.hasPermission(getPlayer(), permission);
-    }
-
-    @Override
-    public void sendMessage(@NotNull TabComponent message) {
-        getPlayer().sendSystemMessage(message.convert());
     }
 
     @Override

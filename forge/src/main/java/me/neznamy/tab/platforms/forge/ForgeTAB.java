@@ -13,11 +13,10 @@ import net.minecraftforge.fml.javafmlmod.FMLJavaModLoadingContext;
 @OnlyIn(Dist.DEDICATED_SERVER)
 @Mod(value = "tab")
 public class ForgeTAB {
-
 	public ForgeTAB(final FMLJavaModLoadingContext context) {
 		IEventBus EVENT_BUS = context.getModEventBus();
 		EVENT_BUS.addListener((RegisterCommandsEvent event) -> new ForgeTabCommand().onRegisterCommands(event.getDispatcher()));
-		EVENT_BUS.addListener((ServerStartingEvent event) -> TAB.create(new ForgePlatform(event.getServer())));
+		EVENT_BUS.addListener((ServerStartingEvent event) -> TAB.create(new ForgePlatform(event.getServer(), "Forge")));
 		EVENT_BUS.addListener((ServerStoppingEvent event) -> TAB.getInstance().unload());
 	}
 }
