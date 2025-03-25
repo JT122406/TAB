@@ -63,4 +63,7 @@ tasks {
     validateAccessWidener {
         enabled = true
     }
+    remapJar {
+        injectAccessWidener.set(true)
+    }
 }
