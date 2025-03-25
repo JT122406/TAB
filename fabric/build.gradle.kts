@@ -54,7 +54,7 @@ dependencies {
     modImplementation(fabricApi.module("fabric-command-api-v2", version))
 }
 
-loom.accessWidenerPath.set(file("src/main/resources/resources/tab.accesswidener"))
+loom.accessWidenerPath.set(project(":modded").file("src/main/resources/tab.accesswidener"))
 
 tasks {
     compileJava {
