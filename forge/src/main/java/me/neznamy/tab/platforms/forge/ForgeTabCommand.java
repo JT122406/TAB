@@ -8,7 +8,6 @@ import com.mojang.brigadier.suggestion.SuggestionsBuilder;
 import com.mojang.brigadier.tree.ArgumentCommandNode;
 import com.mojang.brigadier.tree.LiteralCommandNode;
 import me.neznamy.tab.shared.TAB;
-import me.neznamy.tab.shared.TabConstants;
 import me.neznamy.chat.component.TabComponent;
 import me.neznamy.tab.shared.platform.TabPlayer;
 import net.minecraft.commands.CommandSourceStack;
@@ -21,7 +20,7 @@ import java.util.concurrent.CompletableFuture;
 /**
  * Command handler for plugin's command for Fabric.
  */
-public class NeoForgeTabCommand {
+public class ForgeTabCommand {
 
     /**
      * Handles command register request from server and registers own command.

@@ -1,5 +1,27 @@
 plugins {
     id("dev.architectury.loom")
+    id("architectury-plugin") version "3.4-SNAPSHOT"
+}
+
+architectury {
+    platformSetupLoomIde()
+    forge()
+}
+
+configurations {
+    create("common")
+    "common" {
+        isCanBeResolved = true
+        isCanBeConsumed = false
+    }
+    create("shadowBundle")
+    compileClasspath.get().extendsFrom(configurations["common"])
+    runtimeClasspath.get().extendsFrom(configurations["common"])
+    getByName("developmentForge").extendsFrom(configurations["common"])
+    "shadowBundle" {
+        isCanBeResolved = true
+        isCanBeConsumed = false
+    }
 }
 
 repositories {
@@ -23,6 +45,8 @@ dependencies {
     })
     forge("net.minecraftforge:forge:1.21.4-54.1.3")
     api(projects.shared)
+    "common"(project(":modded", "namedElements")) { isTransitive = false }
+    "shadowBundle"(project(":modded", "transformProductionForge"))
 }
 
 loom.forge.accessTransformer(file("src/main/resources/META-INF/accesstransformer.cfg"))
