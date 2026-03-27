@@ -46,8 +46,8 @@ val platformPaths = setOf(
 )
 
 val moddedPaths = setOf(
-    ":fabric"
-    //":neoforge",
+    ":fabric",
+    ":neoforge"
     //":forge"
 )
 

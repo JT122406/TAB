@@ -20,7 +20,7 @@ val minecraftVersion = "26.1"
 // NeoForge API versions for each Minecraft version for easier backporting
 // Official website (for updating in the future): https://projects.neoforged.net/neoforged/neoforge
 val neoforgeApiVersions = mapOf(
-    "26.1" to "26.1.0.5-beta",
+    "26.1" to "26.1.0.7-beta",
     "1.21.11" to "21.11.0-beta",
     "1.21.10" to "21.10.0-beta",
     "1.21.9" to "21.9.16-beta",
