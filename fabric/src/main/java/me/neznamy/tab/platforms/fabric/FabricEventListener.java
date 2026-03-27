@@ -3,7 +3,7 @@ package me.neznamy.tab.platforms.fabric;
 import me.neznamy.tab.shared.TAB;
 import me.neznamy.tab.shared.platform.EventListener;
 import me.neznamy.tab.shared.platform.TabPlayer;
-import net.fabricmc.fabric.api.entity.event.v1.ServerEntityWorldChangeEvents;
+import net.fabricmc.fabric.api.entity.event.v1.ServerEntityLevelChangeEvents;
 import net.fabricmc.fabric.api.entity.event.v1.ServerPlayerEvents;
 import net.fabricmc.fabric.api.networking.v1.ServerPlayConnectionEvents;
 import net.minecraft.server.level.ServerPlayer;
@@ -32,7 +32,7 @@ public class FabricEventListener implements EventListener<ServerPlayer> {
             // respawning from death & taking end portal in the end does not call world change event
             worldChange(newPlayer.getUUID(), FabricTAB.getLevelName(newPlayer.level()));
         });
-        ServerEntityWorldChangeEvents.AFTER_PLAYER_CHANGE_WORLD.register(
+        ServerEntityLevelChangeEvents.AFTER_PLAYER_CHANGE_LEVEL.register(
                 (player, origin, destination) -> worldChange(player.getUUID(), FabricTAB.getLevelName(destination)));
     }
 

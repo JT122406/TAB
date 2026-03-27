@@ -1,7 +1,7 @@
 import com.github.jengelman.gradle.plugins.shadow.tasks.ShadowJar
 
 plugins {
-    id("dev.architectury.loom")
+    id("dev.architectury.loom-no-remap")
 }
 
 repositories {
@@ -15,11 +15,12 @@ repositories {
     maven("https://repo.papermc.io/repository/maven-public/") // Adventure
 }
 
-val minecraftVersion = "1.21.11"
+val minecraftVersion = "26.1"
 
 // NeoForge API versions for each Minecraft version for easier backporting
 // Official website (for updating in the future): https://projects.neoforged.net/neoforged/neoforge
 val neoforgeApiVersions = mapOf(
+    "26.1" to "26.1.0.5-beta",
     "1.21.11" to "21.11.0-beta",
     "1.21.10" to "21.10.0-beta",
     "1.21.9" to "21.9.16-beta",
@@ -41,7 +42,6 @@ val neoforgeApiVersions = mapOf(
 
 dependencies {
     minecraft("com.mojang:minecraft:${minecraftVersion}")
-    mappings(loom.officialMojangMappings())
     neoForge("net.neoforged:neoforge:${neoforgeApiVersions[minecraftVersion]}")
     api(projects.shared)
     compileOnly("net.luckperms:api:5.4")
@@ -51,7 +51,7 @@ loom.neoForge.accessTransformer(file("src/main/resources/META-INF/accesstransfor
 
 tasks {
     compileJava {
-        options.release.set(21)
+        options.release.set(25)
     }
     withType<ShadowJar>().configureEach {
         enabled = false

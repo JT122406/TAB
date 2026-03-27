@@ -70,9 +70,9 @@ public record FabricPlatform(MinecraftServer server) implements BackendPlatform 
 
         PlaceholderManagerImpl manager = TAB.getInstance().getPlaceholderManager();
         manager.registerPlayerPlaceholder(identifier,
-                p -> Placeholders.parseText(
+                p -> Placeholders.SERVER_PLACEHOLDER_PARSER(
                         Component.literal(identifier),
-                        PlaceholderContext.of((ServerPlayer) p.getPlayer())
+                        new PlaceholderContext.of((ServerPlayer) p.getPlayer())
                 ).getString()
         );
     }

@@ -1,7 +1,7 @@
 import com.github.jengelman.gradle.plugins.shadow.tasks.ShadowJar
 
 plugins {
-    id("dev.architectury.loom")
+    id("dev.architectury.loom-no-remap")
 }
 
 repositories {
@@ -15,11 +15,12 @@ repositories {
     maven("https://repo.papermc.io/repository/maven-public/") // Adventure
 }
 
-val minecraftVersion = "1.21.11"
+val minecraftVersion = "26.1"
 
 // Forge API versions for each Minecraft version for easier backporting
 // Official website (for updating in the future): https://files.minecraftforge.net/net/minecraftforge/forge/
 val forgeApiVersions = mapOf(
+    "26.1" to "26.1-62.0.3",
     "1.21.11" to "1.21.11-61.0.2",
     "1.21.10" to "1.21.10-60.1.5",
     "1.21.9" to "1.21.9-59.0.5",
@@ -60,7 +61,6 @@ val forgeApiVersions = mapOf(
 
 dependencies {
     minecraft("com.mojang:minecraft:${minecraftVersion}")
-    mappings(loom.officialMojangMappings())
     forge("net.minecraftforge:forge:${forgeApiVersions[minecraftVersion]}")
     api(projects.shared)
     compileOnly("net.luckperms:api:5.4")
@@ -70,7 +70,7 @@ loom.forge.accessTransformer(file("src/main/resources/META-INF/accesstransformer
 
 tasks {
     compileJava {
-        options.release.set(21)
+        options.release.set(25)
     }
     withType<ShadowJar>().configureEach {
         enabled = false

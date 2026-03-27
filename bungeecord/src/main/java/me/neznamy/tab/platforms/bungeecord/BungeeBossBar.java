@@ -24,7 +24,7 @@ public class BungeeBossBar extends SafeBossBar<UUID> {
 
     @Override
     @NotNull
-    public UUID constructBossBar(@NotNull TabComponent title, float progress, @NotNull BarColor color, @NotNull BarStyle style) {
+    public UUID constructBossBar(@NotNull UUID uuid, @NotNull TabComponent title, float progress, @NotNull BarColor color, @NotNull BarStyle style) {
         return UUID.randomUUID();
     }
 

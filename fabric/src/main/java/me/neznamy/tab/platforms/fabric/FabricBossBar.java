@@ -10,6 +10,8 @@ import net.minecraft.world.BossEvent.BossBarColor;
 import net.minecraft.world.BossEvent.BossBarOverlay;
 import org.jetbrains.annotations.NotNull;
 
+import java.util.UUID;
+
 /**
  * BossBar implementation for Fabric using packets.
  */
@@ -22,8 +24,9 @@ public class FabricBossBar extends SafeBossBar<ServerBossEvent> {
 
     @Override
     @NotNull
-    public ServerBossEvent constructBossBar(@NotNull TabComponent title, float progress, @NotNull BarColor color, @NotNull BarStyle style) {
+    public ServerBossEvent constructBossBar(@NotNull UUID id, @NotNull TabComponent title, float progress, @NotNull BarColor color, @NotNull BarStyle style) {
         ServerBossEvent bar = new ServerBossEvent(
+                id,
                 title.convert(),
                 BossBarColor.valueOf(color.name()),
                 BossBarOverlay.valueOf(style.name())
